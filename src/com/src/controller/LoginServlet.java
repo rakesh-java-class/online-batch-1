@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.src.model.UserLoginModel;
+
 /**
  * Servlet implementation class LoginServlet
  */
@@ -27,10 +29,13 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("useremail");
 		String password = request.getParameter("userpassword");
-		response.getWriter().write("<h1>Thank You for login</h1>");
-		request.setAttribute("loginError", "Invalid Username Or Password");
+		UserLoginModel ulm = new UserLoginModel();
+		ulm.setEmail(email);
+		ulm.setPassword(password);
+		
+		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
-		requestDispatcher.include(request, response);
+		requestDispatcher.forward(request, response);
 	}
 
 	
